@@ -2,8 +2,9 @@ const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
     host: 'localhost',
+    port: 3307,  // Updated to match your MySQL port
     user: 'root',
-    password: 'shree',
+    password: '',  // Try empty password - UPDATE THIS with your actual MySQL password
     database: 'studentdb'
 });
 
