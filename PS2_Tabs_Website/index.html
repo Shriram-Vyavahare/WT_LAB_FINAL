@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WT LAB</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-purple">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">WT LAB</a>
+
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="#" data-target="home">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-target="sdp">SDP</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-target="edi">EDI</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-target="dt">DT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-target="cp">Course Projects</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="container mt-5">
+
+    <!-- HOME -->
+    <div id="home" class="content-box">
+        <h2>Welcome to Web Technology Assignment</h2>
+        <p>
+            This website demonstrates the use of Django, Bootstrap, and jQuery to create a toggleable navigation-based web application.
+        </p>
+        <p>
+            Use the navigation bar above to explore my SDP, EDI, Design Thinking, and Course Project work.
+        </p>
+    </div>
+
+    <!-- SDP -->
+    <div id="sdp" class="content-box d-none">
+        <h3>SDP Projects</h3>
+
+        <h5>SDP Project 1: LearnPro – Cross Platform Learning Application</h5>
+        <p>LearnPro is a cross-platform mobile application developed using Flutter that helps students learn various programming languages through a single platform. The application provides structured learning content, making it easier for beginners to understand programming concepts step by step.</p>
+
+        <p>The app is designed to run on multiple platforms and focuses on user-friendly navigation and accessibility. This project helped me gain hands-on experience in mobile app development, UI design, and cross-platform deployment.</p>
+
+        <hr>
+
+        <h5>SDP Project 2: Bonafide Management System</h5>
+        <p>The Bonafide Management System is a web-based application developed to automate the bonafide certificate request process in an educational institute. Students can submit bonafide requests online, which are then forwarded to the student section for verification.</p>
+
+        <p>After verifying the student details, the system generates a bonafide certificate in PDF format. This project reduced manual paperwork and improved efficiency in certificate processing while strengthening my skills in web development and workflow automation.</p>
+
+        <hr>
+
+        <h5>SDP Project 3: Gamer’s Anxiety Prediction System</h5>
+        <p>This project focuses on predicting anxiety levels in gamers using machine learning techniques. Based on various parameters such as gameplay behavior and user inputs, the ML model determines whether a gamer is experiencing anxiety or not.</p>
+
+        <p>The project demonstrates the application of machine learning for mental health analysis and helped me understand data preprocessing, model training, and prediction workflows in real-world scenarios.</p>
+    </div>
+
+    <!-- EDI -->
+    <div id="edi" class="content-box d-none">
+        <h3>EDI Projects</h3>
+
+        <h5>EDI Project 1: Smart Infant Cry Detection and Soothing System</h5>
+        <p>This project focuses on developing an intelligent baby monitoring system using ESP32 microcontrollers, sensors, and machine learning. The system detects baby cries using a MAX4466 microphone, where audio signals are processed on the ESP32 and classified as cry or not cry using a TinyML model trained on Edge Impulse.</p>
+
+        <p>Along with cry detection, the system monitors baby movement, temperature, and humidity using ultrasonic and DHT11 sensors. When a cry is detected, real-time alerts are sent to a Firebase-backed mobile application, and a second ESP32 automatically plays soothing lullabies using an SD card and speaker module.</p>
+
+        <p>This project demonstrates effective use of embedded AI, sensor integration, cloud connectivity, and real-time decision-making for infant care automation.</p>
+
+        <hr>
+
+        <h5>EDI Project 2: Smart Crop Lifecycle Automation and AI-Based Soil NPK Estimation</h5>
+        <p>This project presents a PC-based smart agriculture system that combines crop environment automation with AI-driven soil nutrient prediction. An Arduino Nano continuously collects environmental data such as air temperature, humidity, soil moisture, and soil temperature, which is transmitted to a Python-based supervisory application via serial communication.</p>
+
+        <p>The system controls actuators like fan, water pump, humidifier, and buzzer based on a four-stage crop lifecycle model, ensuring optimal growth conditions. Additionally, the project uses sensor fusion and computer vision, where soil images and pH paper images are processed and combined with live sensor data to predict Nitrogen (N), Phosphorus (P), and Potassium (K) values using a TensorFlow Lite model.</p>
+
+        <p>The solution offers a low-cost, fault-tolerant, and intelligent precision agriculture tool suitable for small-scale farmers and researchers.</p>
+    </div>
+
+    <!-- DT -->
+    <div id="dt" class="content-box d-none">
+        <h3>Design Thinking (DT)</h3>
+
+        <p>Design Thinking (DT) in our curriculum focuses on research orientation, innovation, and converting engineering solutions into publishable work such as research papers, conference publications, and patents.</p>
+
+        <h5>Research and Publication Based on EDI Project</h5>
+        <p>As part of DT, the work carried out in the EDI project titled “Smart Infant Cry Detection and Soothing System” was extended and documented in the form of a research paper.</p>
+
+        <p>The research paper based on this project has been successfully published in an IEEE conference, where the system design, methodology, and experimental results were presented and evaluated.</p>
+
+        <p>IEEE Publication Link: https://ieeexplore.ieee.org/document/11340091</p>
+
+        <h5>Ongoing Research Work</h5>
+        <p>In addition to the published work, another research paper based on our EDI project related to smart agriculture and AI-based soil NPK estimation has been prepared and submitted to an international conference.</p>
+
+        <p>This DT activity helped in understanding the complete research lifecycle including problem formulation, literature review, experimentation, result analysis, technical writing, and paper submission process.</p>
+    </div>
+
+    <!-- COURSE PROJECTS -->
+    <div id="cp" class="content-box d-none">
+        <h3>Course Projects</h3>
+
+        <h5>Course Project 1: Air Gesture Mouse</h5>
+        <p>The Air Gesture Mouse project focuses on developing a gesture-based human–computer interaction system that replaces traditional mouse and keyboard usage. The system uses an MPU6050 motion sensor to capture hand movements and an ESP32 microcontroller to process gesture data in real time.</p>
+
+        <p>Based on the detected gestures, cursor movement and keyboard actions are performed using Bluetooth or USB HID communication. A capacitive touch sensor is used to switch between mouse control mode and gesture-based keyboard control. This project helped in understanding embedded systems, sensor calibration, and real-time data processing.</p>
+
+        <hr>
+
+        <h5>Course Project 2: Cyber Surfy: AI Powered shoulder surfer detection system</h5>
+        <p>This project explores facial landmark detection using the MediaPipe framework, specifically the Face Mesh model. The system detects and tracks facial landmarks in real time using a camera feed and computer vision techniques.main aim is to detect the surfer in public places like offices,garden.</p>
+
+        <p>The project involved understanding the difference between the MediaPipe framework and its Face Mesh solution, implementing facial feature tracking, and analyzing real-time performance. This work strengthened concepts related to computer vision, machine learning pipelines, and real-time image processing.</p>
+    </div>
+
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- JS -->
+<script src="js/script.js"></script>
+
+</body>
+</html>

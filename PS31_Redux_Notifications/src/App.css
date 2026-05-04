@@ -1,0 +1,169 @@
+.app {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.app-subtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  font-weight: 400;
+}
+
+.demo-section {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.demo-title {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.demo-button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.demo-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.demo-button.info {
+  background: #3498db;
+  color: white;
+}
+
+.demo-button.info:hover {
+  background: #2980b9;
+}
+
+.demo-button.success {
+  background: #27ae60;
+  color: white;
+}
+
+.demo-button.success:hover {
+  background: #229954;
+}
+
+.demo-button.warning {
+  background: #f39c12;
+  color: white;
+}
+
+.demo-button.warning:hover {
+  background: #e67e22;
+}
+
+.demo-button.error {
+  background: #e74c3c;
+  color: white;
+}
+
+.demo-button.error:hover {
+  background: #c0392b;
+}
+
+.custom-notification {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #ecf0f1;
+}
+
+.custom-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 2px solid #ecf0f1;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.custom-select {
+  padding: 10px 12px;
+  border: 2px solid #ecf0f1;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+}
+
+.add-button {
+  background: #34495e;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background: #2c3e50;
+}
+
+.add-button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 20px 10px;
+  }
+  
+  .demo-section {
+    padding: 20px;
+  }
+  
+  .custom-notification {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .button-grid {
+    grid-template-columns: 1fr;
+  }
+}

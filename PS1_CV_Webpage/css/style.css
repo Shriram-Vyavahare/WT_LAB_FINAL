@@ -1,0 +1,36 @@
+/* VIDEO BACKGROUND */
+#bgVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}
+
+/* HERO SECTION */
+.hero-section {
+    margin-top: 50px;
+}
+
+.profile-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 5px solid #8e5adf;
+    object-fit: cover;
+}
+
+/* CV BOXES */
+.cv-box {
+    background: #7b5aa6;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+/* FEEDBACK */
+.feedback-section {
+    width: 300px;
+}

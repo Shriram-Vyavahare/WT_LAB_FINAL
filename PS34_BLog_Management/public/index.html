@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Management API Tester</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Blog Management API Tester</h1>
+            <p>Test your REST API endpoints with this simple interface</p>
+        </header>
+
+        <div class="api-section">
+            <h2>API Endpoints</h2>
+            
+            <!-- Get All Posts -->
+            <div class="endpoint-card">
+                <h3>GET All Posts</h3>
+                <p><code>GET /api/posts</code></p>
+                <button onclick="getAllPosts()" class="btn btn-get">Get All Posts</button>
+            </div>
+
+            <!-- Get Single Post -->
+            <div class="endpoint-card">
+                <h3>GET Single Post</h3>
+                <p><code>GET /api/posts/:id</code></p>
+                <div class="form-group">
+                    <input type="text" id="getPostId" placeholder="Enter Post ID" class="input-field">
+                    <button onclick="getSinglePost()" class="btn btn-get">Get Post</button>
+                </div>
+            </div>
+
+            <!-- Create Post -->
+            <div class="endpoint-card">
+                <h3>CREATE New Post</h3>
+                <p><code>POST /api/posts</code></p>
+                <div class="form-group">
+                    <input type="text" id="createTitle" placeholder="Post Title" class="input-field">
+                    <input type="text" id="createAuthor" placeholder="Author Name" class="input-field">
+                    <textarea id="createContent" placeholder="Post Content" class="textarea-field"></textarea>
+                    <button onclick="createPost()" class="btn btn-post">Create Post</button>
+                </div>
+            </div>
+
+            <!-- Update Post -->
+            <div class="endpoint-card">
+                <h3>UPDATE Post</h3>
+                <p><code>PUT /api/posts/:id</code></p>
+                <div class="form-group">
+                    <input type="text" id="updateId" placeholder="Post ID to Update" class="input-field">
+                    <input type="text" id="updateTitle" placeholder="New Title" class="input-field">
+                    <input type="text" id="updateAuthor" placeholder="New Author" class="input-field">
+                    <textarea id="updateContent" placeholder="New Content" class="textarea-field"></textarea>
+                    <button onclick="updatePost()" class="btn btn-put">Update Post</button>
+                </div>
+            </div>
+
+            <!-- Delete Post -->
+            <div class="endpoint-card">
+                <h3>DELETE Post</h3>
+                <p><code>DELETE /api/posts/:id</code></p>
+                <div class="form-group">
+                    <input type="text" id="deleteId" placeholder="Post ID to Delete" class="input-field">
+                    <button onclick="deletePost()" class="btn btn-delete">Delete Post</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Response Display -->
+        <div class="response-section">
+            <h2>API Response</h2>
+            <div class="response-info">
+                <span id="responseStatus" class="status-badge"></span>
+                <span id="responseTime" class="time-badge"></span>
+            </div>
+            <pre id="responseBody" class="response-body">Click any button above to test the API endpoints</pre>
+        </div>
+
+        <!-- Blog Posts Display -->
+        <div class="posts-section">
+            <h2>Current Blog Posts</h2>
+            <button onclick="refreshPosts()" class="btn btn-refresh">Refresh Posts</button>
+            <div id="postsContainer" class="posts-container">
+                <!-- Posts will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Main Content */
+main {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Traffic Lights Section */
+.traffic-lights-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.traffic-light-container, .pedestrian-light-container {
+    text-align: center;
+}
+
+.traffic-light-container h2, .pedestrian-light-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Main Traffic Light */
+.traffic-light {
+    background: #2c3e50;
+    border-radius: 20px;
+    padding: 20px;
+    display: inline-block;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    border: 4px solid #34495e;
+}
+
+.light {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 15px auto;
+    border: 3px solid #555;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.light::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    width: 30%;
+    height: 30%;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Light Colors */
+.light.red {
+    background: #4a4a4a;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.light.red.active {
+    background: #e74c3c;
+    box-shadow: 
+        0 0 30px #e74c3c,
+        0 0 60px #e74c3c,
+        inset 0 0 20px rgba(231,76,60,0.3);
+    animation: glow-red 2s ease-in-out infinite alternate;
+}
+
+.light.yellow {
+    background: #4a4a4a;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.light.yellow.active {
+    background: #f1c40f;
+    box-shadow: 
+        0 0 30px #f1c40f,
+        0 0 60px #f1c40f,
+        inset 0 0 20px rgba(241,196,15,0.3);
+    animation: glow-yellow 2s ease-in-out infinite alternate;
+}
+
+.light.green {
+    background: #4a4a4a;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.light.green.active {
+    background: #27ae60;
+    box-shadow: 
+        0 0 30px #27ae60,
+        0 0 60px #27ae60,
+        inset 0 0 20px rgba(39,174,96,0.3);
+    animation: glow-green 2s ease-in-out infinite alternate;
+}
+
+/* Glow Animations */
+@keyframes glow-red {
+    from { box-shadow: 0 0 20px #e74c3c, 0 0 40px #e74c3c, inset 0 0 20px rgba(231,76,60,0.3); }
+    to { box-shadow: 0 0 40px #e74c3c, 0 0 80px #e74c3c, inset 0 0 30px rgba(231,76,60,0.5); }
+}
+
+@keyframes glow-yellow {
+    from { box-shadow: 0 0 20px #f1c40f, 0 0 40px #f1c40f, inset 0 0 20px rgba(241,196,15,0.3); }
+    to { box-shadow: 0 0 40px #f1c40f, 0 0 80px #f1c40f, inset 0 0 30px rgba(241,196,15,0.5); }
+}
+
+@keyframes glow-green {
+    from { box-shadow: 0 0 20px #27ae60, 0 0 40px #27ae60, inset 0 0 20px rgba(39,174,96,0.3); }
+    to { box-shadow: 0 0 40px #27ae60, 0 0 80px #27ae60, inset 0 0 30px rgba(39,174,96,0.5); }
+}
+
+/* Pedestrian Light */
+.pedestrian-light {
+    background: #2c3e50;
+    border-radius: 15px;
+    padding: 20px;
+    display: inline-block;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    border: 4px solid #34495e;
+}
+
+.ped-light {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    border: 2px solid #555;
+}
+
+.ped-light.walk {
+    background: #4a4a4a;
+}
+
+.ped-light.walk.active {
+    background: #27ae60;
+    box-shadow: 0 0 20px #27ae60;
+    animation: glow-green 2s ease-in-out infinite alternate;
+}
+
+.ped-light.dont-walk {
+    background: #4a4a4a;
+}
+
+.ped-light.dont-walk.active {
+    background: #e74c3c;
+    box-shadow: 0 0 20px #e74c3c;
+    animation: glow-red 2s ease-in-out infinite alternate;
+}
+
+/* Controls */
+.controls {
+    margin-top: 20px;
+}
+
+.controls button, .crossing-button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.controls button:hover, .crossing-button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.crossing-button {
+    background: #e67e22;
+    margin-top: 15px;
+    font-size: 16px;
+    padding: 12px 24px;
+}
+
+.crossing-button:hover {
+    background: #d35400;
+}
+
+/* Info Section */
+.info-section {
+    margin-bottom: 40px;
+}
+
+.info-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-light {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    border: 2px solid #555;
+}
+
+.red-demo {
+    background: #e74c3c;
+    box-shadow: 0 0 15px #e74c3c;
+}
+
+.yellow-demo {
+    background: #f1c40f;
+    box-shadow: 0 0 15px #f1c40f;
+}
+
+.green-demo {
+    background: #27ae60;
+    box-shadow: 0 0 15px #27ae60;
+}
+
+/* Intersection Diagram */
+.diagram-section {
+    margin-bottom: 40px;
+}
+
+.diagram-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.intersection-diagram {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    background: #34495e;
+    border-radius: 10px;
+}
+
+.road {
+    position: absolute;
+    background: #7f8c8d;
+}
+
+.road.horizontal {
+    width: 100%;
+    height: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.road.vertical {
+    width: 60px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.intersection-center {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #95a5a6;
+    border-radius: 5px;
+}
+
+.traffic-light-pole {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 5px;
+    background: #2c3e50;
+    border-radius: 5px;
+}
+
+.traffic-light-pole.top {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.traffic-light-pole.right {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.traffic-light-pole.bottom {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.traffic-light-pole.left {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mini-light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4a4a4a;
+    transition: all 0.3s ease;
+}
+
+.mini-light.red.active {
+    background: #e74c3c;
+    box-shadow: 0 0 8px #e74c3c;
+}
+
+.mini-light.yellow.active {
+    background: #f1c40f;
+    box-shadow: 0 0 8px #f1c40f;
+}
+
+.mini-light.green.active {
+    background: #27ae60;
+    box-shadow: 0 0 8px #27ae60;
+}
+
+/* Status Section */
+.status-section {
+    margin-bottom: 40px;
+}
+
+.status-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.status-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.status-item {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.status-label {
+    display: block;
+    font-weight: bold;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+.status-value {
+    display: block;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    color: white;
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .traffic-lights-section {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .light {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .intersection-diagram {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .status-display {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    main {
+        padding: 20px;
+    }
+    
+    .controls button, .crossing-button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    .intersection-diagram {
+        width: 200px;
+        height: 200px;
+    }
+}

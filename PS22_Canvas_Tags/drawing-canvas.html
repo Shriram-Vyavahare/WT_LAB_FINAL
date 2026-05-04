@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Drawing Canvas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 300;
+            font-size: 2.5rem;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tool-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        button:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button.active {
+            background: #764ba2;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .color-picker {
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .canvas-container {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: #f8f9fa;
+        }
+
+        canvas {
+            display: block;
+            cursor: crosshair;
+            background: white;
+            width: 100%;
+            height: auto;
+        }
+
+        .instructions {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .status {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 500;
+            color: #667eea;
+            min-height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+            }
+
+            .toolbar {
+                gap: 10px;
+            }
+
+            button {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            .tool-group {
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .toolbar {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tool-group {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Drawing Canvas</h1>
+        
+        <div class="toolbar">
+            <div class="tool-group">
+                <button id="lineBtn" class="active">Draw Line</button>
+                <button id="rectBtn">Draw Rectangle</button>
+            </div>
+            
+            <div class="tool-group">
+                <input type="color" id="colorPicker" class="color-picker" value="#667eea">
+                <button id="clearBtn">Clear Canvas</button>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="drawingCanvas" width="800" height="500"></canvas>
+        </div>
+
+        <div class="status" id="status">Select "Draw Line" and click two points to draw a line</div>
+
+        <div class="instructions">
+            <strong>How to use:</strong><br>
+            • <strong>Line:</strong> Click two points to draw a line between them<br>
+            • <strong>Rectangle:</strong> Click two points to define opposite corners of a rectangle<br>
+            • Use the color picker to change drawing color<br>
+            • Click "Clear Canvas" to start over
+        </div>
+    </div>
+
+    <script>
+        class DrawingCanvas {
+            constructor() {
+                this.canvas = document.getElementById('drawingCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.currentTool = 'line';
+                this.currentColor = '#667eea';
+                this.isDrawing = false;
+                this.startPoint = null;
+                this.shapes = [];
+                
+                this.initializeCanvas();
+                this.setupEventListeners();
+                this.updateStatus();
+            }
+
+            initializeCanvas() {
+                // Make canvas responsive
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
+                
+                // Set initial drawing properties
+                this.ctx.lineWidth = 2;
+                this.ctx.lineCap = 'round';
+                this.ctx.lineJoin = 'round';
+            }
+
+            resizeCanvas() {
+                const container = this.canvas.parentElement;
+                const containerWidth = container.clientWidth;
+                const aspectRatio = 800 / 500;
+                
+                let canvasWidth = Math.min(containerWidth, 800);
+                let canvasHeight = canvasWidth / aspectRatio;
+                
+                // Store current drawings
+                const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Resize canvas
+                this.canvas.width = canvasWidth;
+                this.canvas.height = canvasHeight;
+                
+                // Restore drawing properties
+                this.ctx.lineWidth = 2;
+                this.ctx.lineCap = 'round';
+                this.ctx.lineJoin = 'round';
+                
+                // Redraw all shapes
+                this.redrawShapes();
+            }
+
+            setupEventListeners() {
+                // Tool selection
+                document.getElementById('lineBtn').addEventListener('click', () => this.selectTool('line'));
+                document.getElementById('rectBtn').addEventListener('click', () => this.selectTool('rectangle'));
+                
+                // Color picker
+                document.getElementById('colorPicker').addEventListener('change', (e) => {
+                    this.currentColor = e.target.value;
+                });
+                
+                // Clear button
+                document.getElementById('clearBtn').addEventListener('click', () => this.clearCanvas());
+                
+                // Canvas events
+                this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
+                this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+                this.canvas.addEventListener('mouseleave', () => this.clearPreview());
+            }
+
+            selectTool(tool) {
+                this.currentTool = tool;
+                this.isDrawing = false;
+                this.startPoint = null;
+                this.clearPreview();
+                
+                // Update button states
+                document.querySelectorAll('.toolbar button').forEach(btn => btn.classList.remove('active'));
+                document.getElementById(tool === 'line' ? 'lineBtn' : 'rectBtn').classList.add('active');
+                
+                this.updateStatus();
+            }
+
+            updateStatus() {
+                const status = document.getElementById('status');
+                if (this.currentTool === 'line') {
+                    status.textContent = this.isDrawing ? 
+                        'Click the second point to complete the line' : 
+                        'Select "Draw Line" and click two points to draw a line';
+                } else {
+                    status.textContent = this.isDrawing ? 
+                        'Click the second point to complete the rectangle' : 
+                        'Select "Draw Rectangle" and click two points to define corners';
+                }
+            }
+
+            getMousePos(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const scaleX = this.canvas.width / rect.width;
+                const scaleY = this.canvas.height / rect.height;
+                
+                return {
+                    x: (e.clientX - rect.left) * scaleX,
+                    y: (e.clientY - rect.top) * scaleY
+                };
+            }
+
+            handleCanvasClick(e) {
+                const pos = this.getMousePos(e);
+                
+                if (!this.isDrawing) {
+                    // Start drawing
+                    this.startPoint = pos;
+                    this.isDrawing = true;
+                    this.updateStatus();
+                } else {
+                    // Complete drawing
+                    this.completeShape(pos);
+                    this.isDrawing = false;
+                    this.startPoint = null;
+                    this.updateStatus();
+                }
+            }
+
+            handleMouseMove(e) {
+                if (this.isDrawing && this.startPoint) {
+                    const pos = this.getMousePos(e);
+                    this.drawPreview(pos);
+                }
+            }
+
+            drawPreview(endPoint) {
+                this.redrawShapes();
+                
+                this.ctx.save();
+                this.ctx.globalAlpha = 0.7;
+                this.ctx.strokeStyle = this.currentColor;
+                this.ctx.setLineDash([5, 5]);
+                
+                if (this.currentTool === 'line') {
+                    this.drawLine(this.startPoint, endPoint);
+                } else if (this.currentTool === 'rectangle') {
+                    this.drawRectangle(this.startPoint, endPoint);
+                }
+                
+                this.ctx.restore();
+            }
+
+            clearPreview() {
+                this.redrawShapes();
+            }
+
+            completeShape(endPoint) {
+                const shape = {
+                    type: this.currentTool,
+                    start: { ...this.startPoint },
+                    end: { ...endPoint },
+                    color: this.currentColor
+                };
+                
+                this.shapes.push(shape);
+                this.redrawShapes();
+            }
+
+            drawLine(start, end) {
+                this.ctx.beginPath();
+                this.ctx.moveTo(start.x, start.y);
+                this.ctx.lineTo(end.x, end.y);
+                this.ctx.stroke();
+            }
+
+            drawRectangle(start, end) {
+                const width = end.x - start.x;
+                const height = end.y - start.y;
+                this.ctx.strokeRect(start.x, start.y, width, height);
+            }
+
+            redrawShapes() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.shapes.forEach(shape => {
+                    this.ctx.save();
+                    this.ctx.strokeStyle = shape.color;
+                    this.ctx.setLineDash([]);
+                    
+                    if (shape.type === 'line') {
+                        this.drawLine(shape.start, shape.end);
+                    } else if (shape.type === 'rectangle') {
+                        this.drawRectangle(shape.start, shape.end);
+                    }
+                    
+                    this.ctx.restore();
+                });
+            }
+
+            clearCanvas() {
+                this.shapes = [];
+                this.isDrawing = false;
+                this.startPoint = null;
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.updateStatus();
+            }
+        }
+
+        // Initialize the drawing canvas when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new DrawingCanvas();
+        });
+    </script>
+</body>
+</html>

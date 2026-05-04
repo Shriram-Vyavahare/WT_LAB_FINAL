@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Signal Lights</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Traffic Signal System</h1>
+            <p>Interactive Traffic Light Demonstration</p>
+        </header>
+
+        <main>
+            <div class="traffic-lights-section">
+                <div class="traffic-light-container">
+                    <h2>Main Traffic Light</h2>
+                    <div class="traffic-light" id="mainLight">
+                        <div class="light red" id="red"></div>
+                        <div class="light yellow" id="yellow"></div>
+                        <div class="light green" id="green"></div>
+                    </div>
+                    <div class="controls">
+                        <button onclick="startAutomatic()">Auto Mode</button>
+                        <button onclick="stopAutomatic()">Stop</button>
+                        <button onclick="setLight('red')">Red</button>
+                        <button onclick="setLight('yellow')">Yellow</button>
+                        <button onclick="setLight('green')">Green</button>
+                    </div>
+                </div>
+
+                <div class="pedestrian-light-container">
+                    <h2>Pedestrian Crossing</h2>
+                    <div class="pedestrian-light">
+                        <div class="ped-light walk" id="walk">
+                            <div class="walk-icon">🚶</div>
+                        </div>
+                        <div class="ped-light dont-walk" id="dontWalk">
+                            <div class="hand-icon">✋</div>
+                        </div>
+                    </div>
+                    <button onclick="requestCrossing()" class="crossing-button">Request Crossing</button>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>Traffic Light Information</h2>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-light red-demo"></div>
+                        <h3>Red Light</h3>
+                        <p>Stop completely. Do not proceed until the light turns green.</p>
+                        <p><strong>Duration:</strong> 30 seconds</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-light yellow-demo"></div>
+                        <h3>Yellow Light</h3>
+                        <p>Caution. Prepare to stop if safe to do so.</p>
+                        <p><strong>Duration:</strong> 5 seconds</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-light green-demo"></div>
+                        <h3>Green Light</h3>
+                        <p>Go. Proceed when safe and clear.</p>
+                        <p><strong>Duration:</strong> 25 seconds</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagram-section">
+                <h2>Traffic Flow Diagram</h2>
+                <div class="intersection-diagram">
+                    <div class="road horizontal"></div>
+                    <div class="road vertical"></div>
+                    <div class="traffic-light-pole top">
+                        <div class="mini-light red active" id="northLight"></div>
+                        <div class="mini-light yellow" id="northYellow"></div>
+                        <div class="mini-light green" id="northGreen"></div>
+                    </div>
+                    <div class="traffic-light-pole right">
+                        <div class="mini-light red" id="eastLight"></div>
+                        <div class="mini-light yellow" id="eastYellow"></div>
+                        <div class="mini-light green active" id="eastGreen"></div>
+                    </div>
+                    <div class="traffic-light-pole bottom">
+                        <div class="mini-light red active" id="southLight"></div>
+                        <div class="mini-light yellow" id="southYellow"></div>
+                        <div class="mini-light green" id="southGreen"></div>
+                    </div>
+                    <div class="traffic-light-pole left">
+                        <div class="mini-light red" id="westLight"></div>
+                        <div class="mini-light yellow" id="westYellow"></div>
+                        <div class="mini-light green active" id="westGreen"></div>
+                    </div>
+                    <div class="intersection-center"></div>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <h2>System Status</h2>
+                <div class="status-display">
+                    <div class="status-item">
+                        <span class="status-label">Current State:</span>
+                        <span class="status-value" id="currentState">Red</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Time Remaining:</span>
+                        <span class="status-value" id="timeRemaining">--</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Mode:</span>
+                        <span class="status-value" id="currentMode">Manual</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Traffic Signal System Demo</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
